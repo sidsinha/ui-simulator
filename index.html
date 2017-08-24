@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>Server Canvas</title>
+  <link rel="stylesheet" href="./src/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="./src/assets/css/style.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+</head>
+<body ng-app="app" ng-controller="mainController">
+<div class="container">
+    <div class="col-lg-2 left p-r-l-0">
+        <div class="col-lg-12 add-server-icon">
+            <div class="col-lg-6 p-r-l-0 pointer" ng-click="addServer()">
+                <span class="glyphicon glyphicon-plus-sign big-icon" aria-hidden="true"></span>
+                <p class="smalltext">Add Server</p>
+            </div>
+            <div class="col-lg-6 p-r-l-0 pointer" ng-click="removeServer()">
+                <span class="glyphicon glyphicon-minus-sign big-icon" aria-hidden="true"></span>
+                <p class="smalltext">Destroy</p>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="apps" ng-cloak>
+            <ul class="list-group">
+            	<apps-listing app-obj="app" ng-repeat="app in apps" is-avail-function="isAppsAvailable(id)" start-app-function="startApp(id, initial, name)" stop-app-function="stopApp(id)"></apps-listing>
+                
+                <li class="list-group-item vert-line-{{ app.name }}" ng-repeat="app in apps">
+                	{{ app.name }}
+				    <span class="apps-icon">
+				        <a href="javascript:void(0);" ng-click="stopApp(app.id)">
+				            <i ng-class="isAppsAvailable(app.id)? 'white-clr' : 'disable'" class="glyphicon glyphicon-minus-sign icon-2x p-l-5" aria-hidden="true"></i>
+				        </a>
+				        <a href="javascript:void(0);" ng-click="startApp(app.id, app.initial, app.name)">
+				            <i ng-class="isServerAvailable(app.id)? app.name+'-col' : 'disable'" class="glyphicon glyphicon-plus-sign icon-2x p-l-5" aria-hidden="true"></i>
+				        </a>
+				    </span>
+				</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-10 right">
+        <div class="page-header">
+            <h1>Server Canvas</h1>
+        </div>
+        <div class="row" ng-cloak>
+            <div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="server in serverList">
+
+            	<p class="center">Server {{$index + 1}}<p>
+                <div class="thumbnail">
+                	<div class="caption single-app-height radius" ng-if="!server.apps.length">
+					    <h3 class="white-clr">&nbsp;</h3>
+					    <p class="white-clr">&nbsp;</p>
+					    <small>&nbsp;</small>
+					</div>
+					<div class="caption single-app-height mar-bot-15 radius {{app.name}}" ng-if="server.apps.length === 1" ng-repeat="app in server.apps">
+					    <h3 class="white-clr">{{app.initial }}</h3>
+					    <p class="white-clr">{{ app.name }}</p>
+					    <small am-time-ago="app.dateAdded"></small>
+					</div>
+
+					<div ng-if="server.apps.length > 1">
+					    <div class="caption pad-5 mar-bot-15 radius {{app.name}}" ng-repeat="app in server.apps" >
+					        <p class="dual-p white-clr">{{ app.initial }}</p>
+					        <p class="dual-p white-clr">{{ app.name }}</p>
+					        <small am-time-ago="app.dateAdded"></small>
+					    </div>
+					</div>
+					<div class="overlay"></div>
+	                <div class="button bold">
+		                <ul class="list-group hover-menu">
+		                	<li class="active-menu" ng-click="removeServerOnClick($index)"><i class="glyphicon glyphicon-trash p-l-5" aria-hidden="true"></i> DESTROY SERVER</li>
+		                	<li class="deactive-menu smalltext" style="background-color: grey; padding: 5px;"><i class="glyphicon glyphicon-plus-sign p-l-5" aria-hidden="true"></i> MORE ACTION</li>
+		                </ul>
+	                </div>
+
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="bundle.js"></script>
+</body>
+</html>

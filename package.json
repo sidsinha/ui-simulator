@@ -1,0 +1,24 @@
+{
+  "name": "sever-canvas",
+  "version": "0.0.0",
+  "description": "Server Canvas where we can add servers and can starts apps in that.",
+  "main": "entry.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Siddharth <sid.sinhaa@gmail.com>",
+  "license": "",
+  "devDependencies": {
+    "angular": "^1.6.3",
+    "angular-mocks": "^1.6.3",
+    "bower": "^1.8.0",
+    "jasmine": "^2.5.3",
+    "karma": "^1.5.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "webpack-dev-server": "^1.9.0"
+  },
+  "dependencies": {
+    "angular-moment": "^1.0.1"
+  }
+}
